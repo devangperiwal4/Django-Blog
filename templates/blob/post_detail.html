@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title%}
+{{post.title}} | {{post.author.first_name}} {{post.author.last_name}}
+{% endblock %}
+{% block content %}
+
+<h1 style="text-transform: capitalize;">{{post.title}}</h1>
+<small>By
+     {{post.author.first_name}} {{post.author.last_name}} 
+     | {{post.post_date}}
+     {% if user.is_authenticated %} 
+          <a href="{% url 'update' post.pk %}">(EDIT)</a> 
+          <a href="{% url 'delete' post.pk %}">(DELETE)</a>
+     {% endif %}
+</small>
+<hr>
+<br>
+{{post.body|safe}}
+<br>
+<br>
+<a href="{% url 'home'%}" class="btn btn-secondary" style="font-size:15px; color:rgb(213, 242, 196)">Back</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Hello! Welcome to my BLOG PAGE</h1>
+<hr>
+<br>
+<ul>
+    {% for post in object_list %}
+    <li>
+
+        <a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> - {{post.author.first_name}} {{post.author.last_name}}
+        {% if user.is_authenticated %}<small><a href="{% url 'update' post.pk %}">EDIT</a> <a href="{% url 'delete' post.pk %}">DELETE</a></small>{% endif %}
+        <br> <small> {{post.post_date}} - <a href="{% url 'category' post.category|slugify %}">{{post.category}}</a></small> 
+        <p>
+            {{post.body|slice:":60"|safe}}...
+        </p>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
